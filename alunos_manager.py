@@ -88,3 +88,9 @@ def remover_aluno(alunos, aluno_id):
             del alunos[i]
             return True
     return False
+
+def listar_alunos_aprovados(self):
+    """Método adicionado no branch feature/melhorias"""
+    aprovados = [aluno for aluno in self.alunos if aluno['media'] >= 7]
+    print(f"Total aprovados: {len(aprovados)}")
+    return aprovados
