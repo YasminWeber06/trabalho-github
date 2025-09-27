@@ -16,6 +16,7 @@ def menu():
     while True:
         print("\n1) Listar alunos")
         print("2) Adicionar aluno")
+        print("3) Calcular média das notas")
         print("0) Sair")
         opcao = input("Escolha: ")
         if opcao == "1":
@@ -26,6 +27,8 @@ def menu():
             nota = float(input("Nota: "))
             adicionar_aluno(alunos, nome, idade, nota)
             print("Aluno adicionado.")
+        elif opcao == "3":
+          print(f"Média das notas: {calcular_media(alunos):.2f}")
         elif opcao == "0":
             break
         else:
@@ -33,3 +36,9 @@ def menu():
 
 if __name__ == "__main__":
     menu()
+
+def calcular_media(alunos):
+    if not alunos:
+        return 0.0
+    return sum(a["nota"] for a in alunos) / len(alunos)
+    
