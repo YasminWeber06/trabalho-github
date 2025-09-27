@@ -14,6 +14,7 @@ def listar_alunos(alunos):
 def menu():
     alunos = []
     while True:
+        print("Bem-vindo ao gerenciador de alunos!")
         print("\n1) Listar alunos")
         print("2) Adicionar aluno")
         print("3) Calcular média das notas")
