@@ -17,6 +17,9 @@ def menu():
         print("\n1) Listar alunos")
         print("2) Adicionar aluno")
         print("3) Calcular média das notas")
+        print("4) Buscar aluno por nome")
+        print("5) Editar aluno")
+        print("6) Remover aluno")
         print("0) Sair")
         opcao = input("Escolha: ")
         if opcao == "1":
@@ -29,6 +32,29 @@ def menu():
             print("Aluno adicionado.")
         elif opcao == "3":
           print(f"Média das notas: {calcular_media(alunos):.2f}")
+        elif opcao == "4":
+            termo = input("Termo de busca: ")
+            encontrados = buscar_por_nome(alunos, termo)
+            listar_alunos(encontrados)
+
+        elif opcao == "5":
+            aluno_id = int(input("ID do aluno a editar: "))
+            nome = input("Novo nome (ou Enter para manter): ")
+            idade = input("Nova idade (ou Enter para manter): ")
+            nota = input("Nova nota (ou Enter para manter): ")
+            editar_aluno(alunos, aluno_id,
+                 nome if nome else None,
+                 int(idade) if idade else None,
+                 float(nota) if nota else None)
+
+        elif opcao == "6":
+            aluno_id = int(input("ID do aluno a remover: "))
+            if remover_aluno(alunos, aluno_id):
+                print("Aluno removido.")
+            else:
+                print("Aluno não encontrado.")
+
+
         elif opcao == "0":
             break
         else:
@@ -42,3 +68,22 @@ def calcular_media(alunos):
         return 0.0
     return sum(a["nota"] for a in alunos) / len(alunos)
     
+def buscar_por_nome(alunos, termo):
+    termo = termo.lower()
+    return [a for a in alunos if termo in a["nome"].lower()]
+
+def editar_aluno(alunos, aluno_id, nome=None, idade=None, nota=None):
+    for a in alunos:
+        if a["id"] == aluno_id:
+            if nome: a["nome"] = nome
+            if idade: a["idade"] = idade
+            if nota: a["nota"] = nota
+            return True
+    return False
+
+def remover_aluno(alunos, aluno_id):
+    for i, a in enumerate(alunos):
+        if a["id"] == aluno_id:
+            del alunos[i]
+            return True
+    return False
